@@ -593,7 +593,7 @@
       });
     }
 
-    if (shellProfile && !shellProfile._demo) {
+    if (shellProfile) {
       currentProfile.name = shellProfile.name || currentProfile.name;
       currentProfile.email = shellProfile.email || currentProfile.email;
       if (shellProfile.department) currentProfile.department = shellProfile.department;
