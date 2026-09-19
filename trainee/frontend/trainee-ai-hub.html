@@ -1,0 +1,169 @@
+<!-- =========================================================
+     Saksham — Trainee AI Hub Component
+     Matches Rajvardhan's Saksham Platform UI/UX
+     ========================================================= -->
+<div class="ai-hub-card" id="sakshamAIHub">
+  <!-- Hub Header -->
+  <div class="ai-hub-topbar">
+    <div class="ai-hub-title">
+      <div class="ai-hub-icon">⚡</div>
+      <div>
+        <h2>AI Study &amp; Competency Hub</h2>
+        <p>Grounded self-assessment quiz generator and verified national faculty recommender</p>
+      </div>
+    </div>
+    <div style="font-size:12px;font-weight:600;background:rgba(255,255,255,.1);padding:4px 10px;border-radius:20px;color:#CBD8EA;">
+      Trainee Learning Desk
+    </div>
+  </div>
+
+  <!-- Dual-Tab Navigation -->
+  <div class="ai-tabs-nav">
+    <button class="ai-tab-btn active" id="tabBtnMCQ" onclick="window.SakshamAIHub.switchTab('mcq')">
+      <span>📝</span>
+      <span>Notes-to-MCQ Practice</span>
+    </button>
+    <button class="ai-tab-btn" id="tabBtnTrainer" onclick="window.SakshamAIHub.switchTab('trainer')">
+      <span>👨‍🏫</span>
+      <span>Faculty &amp; Mentor Match</span>
+    </button>
+  </div>
+
+  <!-- =========================================================
+       TAB 1: NOTES TO MCQ PRACTICE DESK
+       ========================================================= -->
+  <div class="ai-panel active" id="panelMCQ">
+    <!-- Presets Bar -->
+    <div class="preset-bar">
+      <span class="preset-title">Quick Syllabus Presets:</span>
+      <div class="preset-chips">
+        <button class="preset-chip" onclick="window.SakshamAIHub.loadNotesPreset('cyclone')">🌀 Cyclone Warning SOPs</button>
+        <button class="preset-chip" onclick="window.SakshamAIHub.loadNotesPreset('radar')">📡 Doppler Weather Radar</button>
+        <button class="preset-chip" onclick="window.SakshamAIHub.loadNotesPreset('nwp')">💻 Numerical Weather Prediction (WRF)</button>
+        <button class="preset-chip" onclick="window.SakshamAIHub.loadNotesPreset('rail')">🛡️ Train Protection (Kavach/ATP)</button>
+        <button class="preset-chip" onclick="window.SakshamAIHub.loadNotesPreset('clear')" style="color:var(--ink-soft);">✕ Clear</button>
+      </div>
+    </div>
+
+    <!-- Notes Textarea -->
+    <div class="ai-field">
+      <label for="aiNotesInput">Training Notes, Lecture Transcripts, or SOPs:</label>
+      <textarea id="aiNotesInput" rows="6" placeholder="Paste study notes, procedure manuals, or lecture summaries here..."></textarea>
+    </div>
+
+    <!-- Configuration Row -->
+    <div class="ai-form-row">
+      <div class="ai-field" style="margin-bottom:0;">
+        <label for="aiDifficultySelect">Difficulty Level:</label>
+        <select id="aiDifficultySelect">
+          <option value="Easy">Easy (Foundation)</option>
+          <option value="Medium" selected>Medium (Operational)</option>
+          <option value="Hard">Hard (Problem Solving)</option>
+        </select>
+      </div>
+
+      <div class="ai-field" style="margin-bottom:0;">
+        <label for="aiNumQuestions">Questions Count:</label>
+        <select id="aiNumQuestions">
+          <option value="3">3 Questions (Fast)</option>
+          <option value="5" selected>5 Questions (Standard)</option>
+          <option value="10">10 Questions (Comprehensive)</option>
+        </select>
+      </div>
+
+      <div>
+        <button id="btnGenerateMCQ" class="btn btn-primary" onclick="window.SakshamAIHub.generateMCQs()">
+          <span>Generate Assessment</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Notice / Feedback Container -->
+    <div id="aiMCQNotice" style="display:none;margin-top:14px;padding:10px 14px;border-radius:6px;font-size:13px;"></div>
+
+    <!-- Interactive Quiz View -->
+    <div id="aiQuizView" class="quiz-section" style="display:none;">
+      <div class="quiz-meta-bar">
+        <div>
+          <h3 style="font-size:16px;margin:0 0 2px 0;">Interactive Practice Session</h3>
+          <span class="quiz-badge" id="quizMetaInfo"></span>
+        </div>
+        <div class="quiz-score-pill" id="quizLiveScore">
+          Score: 0 / 0
+        </div>
+      </div>
+
+      <!-- Rendered Question Cards -->
+      <div id="quizQuestionsContainer"></div>
+
+      <!-- Quiz Actions -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:20px;flex-wrap:wrap;gap:10px;">
+        <button class="btn btn-ghost btn-sm" onclick="window.SakshamAIHub.resetQuiz()">
+          <span>🔄 Retake Quiz</span>
+        </button>
+        <div id="quizCompletionSummary" style="font-weight:600;font-size:13.5px;color:var(--navy-800);"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 2: FACULTY & MENTOR RECOMMENDATION
+       ========================================================= -->
+  <div class="ai-panel" id="panelTrainer">
+    <!-- Presets Bar -->
+    <div class="preset-bar">
+      <span class="preset-title">Subject Competency Presets:</span>
+      <div class="preset-chips">
+        <button class="preset-chip" onclick="window.SakshamAIHub.loadTrainerPreset('cyclone')">🌀 Cyclone Warning</button>
+        <button class="preset-chip" onclick="window.SakshamAIHub.loadTrainerPreset('radar')">📡 Doppler Radar</button>
+        <button class="preset-chip" onclick="window.SakshamAIHub.loadTrainerPreset('nwp')">💻 NWP Models</button>
+        <button class="preset-chip" onclick="window.SakshamAIHub.loadTrainerPreset('satellite')">🛰️ Satellite Remote Sensing</button>
+        <button class="preset-chip" onclick="window.SakshamAIHub.loadTrainerPreset('agromet')">🌾 Agrometeorology</button>
+        <button class="preset-chip" onclick="window.SakshamAIHub.loadTrainerPreset('rail')">🛡️ Rail Safety</button>
+      </div>
+    </div>
+
+    <!-- Controls Row -->
+    <div class="ai-form-row">
+      <div class="ai-field" style="margin-bottom:0;">
+        <label for="aiTrainerSubject">Subject or Required Skill:</label>
+        <input type="text" id="aiTrainerSubject" value="Tropical Cyclone Warning & Coastal Alert Protocols" placeholder="e.g. Cyclone Warning, Radar data, WRF modeling..." />
+      </div>
+
+      <div class="ai-field" style="margin-bottom:0;">
+        <label for="aiTrainerExp">Min. Experience:</label>
+        <select id="aiTrainerExp">
+          <option value="0">Any Experience</option>
+          <option value="5">5+ Years</option>
+          <option value="10" selected>10+ Years</option>
+          <option value="15">15+ Years (Senior)</option>
+        </select>
+      </div>
+
+      <div>
+        <button id="btnFindTrainers" class="btn btn-navy" onclick="window.SakshamAIHub.findTrainers()">
+          <span>Match Faculty</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Status Alert -->
+    <div id="aiTrainerNotice" style="display:none;margin-top:14px;padding:10px 14px;border-radius:6px;font-size:13px;"></div>
+
+    <!-- Results Grid -->
+    <div id="aiTrainerGrid" class="trainer-grid"></div>
+  </div>
+</div>
+
+<!-- =========================================================
+     FACULTY DOSSIER MODAL (Rajvardhan Style)
+     ========================================================= -->
+<div id="sakshamDossierModal" class="modal-overlay" onclick="if(event.target===this) window.SakshamAIHub.closeDossierModal()">
+  <div class="modal-content-shell">
+    <div class="modal-top">
+      <h3 id="modalTrainerName">Faculty Profile &amp; Competency Dossier</h3>
+      <button onclick="window.SakshamAIHub.closeDossierModal()">✕</button>
+    </div>
+    <div id="modalTrainerBody"></div>
+  </div>
+</div>

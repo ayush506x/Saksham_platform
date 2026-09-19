@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trainer Dashboard — Saksham</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="app-sidebar" id="sidebar"></aside>
+  <div class="app-main">
+    <div class="app-topbar" id="topbar"></div>
+    <div class="app-content">
+
+      <div class="td-layout">
+
+        <!-- ===== LEFT: Profile Panel ===== -->
+        <div class="profile-card">
+          <div class="profile-top">
+            <div class="profile-avatar-wrap">
+              <div class="profile-avatar" id="profileAvatar">
+                RM
+                <div class="edit-dot">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="profile-body">
+            <div class="profile-name" id="profileName">R. Mehta</div>
+            <div class="profile-role" id="profileRoleLabel">Senior Trainer · Governance</div>
+            <a href="#" class="profile-edit-btn" id="editProfileBtn">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Edit Profile
+            </a>
+            <div class="profile-complete-wrap">
+              <div class="profile-complete-label">Profile 85% complete</div>
+              <div class="profile-complete-bar"><div class="profile-complete-fill" style="width:85%"></div></div>
+            </div>
+          </div>
+
+          <div class="profile-divider"></div>
+          <div class="profile-info">
+            <div class="info-section-head">
+              <h4>Basic Information</h4>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Full Name</div>
+              <div class="info-value" id="infoName">R. Mehta</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Trainer ID</div>
+              <div class="info-value">T0042</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Email</div>
+              <div class="info-value" id="infoEmail">r.mehta@gov.in</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Department</div>
+              <div class="info-value">Governance &amp; Finance</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Designation</div>
+              <div class="info-value">Senior Trainer</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Region / Cadre</div>
+              <div class="info-value">Central Secretariat</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== RIGHT: Main Content ===== -->
+        <div class="td-right">
+
+          <!-- ===== Daily Contribution Heatmap ===== -->
+          <div class="daily-heatmap-card">
+            <div class="dhm-header">
+              <div>
+                <div class="dhm-title">Daily Contributions</div>
+                <div class="dhm-sub">Sessions, quiz uploads &amp; trainee interactions — last 12 months</div>
+              </div>
+              <div class="dhm-stats">
+                <div>
+                  <div class="dhm-stat-num" id="dhmTotal">—</div>
+                  <div class="dhm-stat-label">Total this year</div>
+                </div>
+                <div>
+                  <div class="dhm-stat-num dhm-orange" id="dhmStreak">—</div>
+                  <div class="dhm-stat-label">Current streak</div>
+                </div>
+                <div>
+                  <div class="dhm-stat-num" id="dhmLongest">—</div>
+                  <div class="dhm-stat-label">Longest streak</div>
+                </div>
+              </div>
+            </div>
+            <div class="dhm-scroll">
+              <div class="dhm-grid-wrap">
+                <div class="dhm-day-labels">
+                  <div class="dhm-day-lbl">Mon</div>
+                  <div class="dhm-day-lbl"></div>
+                  <div class="dhm-day-lbl">Wed</div>
+                  <div class="dhm-day-lbl"></div>
+                  <div class="dhm-day-lbl">Fri</div>
+                  <div class="dhm-day-lbl"></div>
+                  <div class="dhm-day-lbl">Sun</div>
+                </div>
+                <div class="dhm-months">
+                  <div class="dhm-month-row" id="dhmMonthRow"></div>
+                  <div class="dhm-cells" id="dhmCells"></div>
+                </div>
+              </div>
+            </div>
+            <div class="dhm-legend-row">
+              <div class="dhm-legend-text">Each cell = 1 day &nbsp;·&nbsp; Hover for details</div>
+              <div class="dhm-legend-scale">
+                <span>Less</span>
+                <div class="dhm-lswatch dhm-l0"></div>
+                <div class="dhm-lswatch dhm-l1"></div>
+                <div class="dhm-lswatch dhm-l2"></div>
+                <div class="dhm-lswatch dhm-l3"></div>
+                <div class="dhm-lswatch dhm-l4"></div>
+                <span>More</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- KPI Strip -->
+          <div class="grid-4" style="margin:0;">
+            <div class="kpi">
+              <div class="kpi-top"><span></span><span class="kpi-delta up">+340 this month</span></div>
+              <div class="kpi-num" id="kpiTrainees">128</div>
+              <div class="kpi-label">Trainees enrolled</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-top"><span></span><span class="kpi-delta up">↑ 4%</span></div>
+              <div class="kpi-num">72%</div>
+              <div class="kpi-label">Average score</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-top"><span></span><span class="kpi-delta up">+2 this week</span></div>
+              <div class="kpi-num">9</div>
+              <div class="kpi-label">Library materials</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-top"><span></span></div>
+              <div class="kpi-num">2</div>
+              <div class="kpi-label">Questionnaires open</div>
+            </div>
+          </div>
+
+          <!-- Course Contribution Graph Card -->
+          <div class="activity-card">
+            <div class="activity-header">
+              <h3>Course Contribution Graph</h3>
+              <p>Courses taught by you — duration in weeks &amp; overall trainee completion rate</p>
+            </div>
+            <div class="activity-stats">
+              <div>
+                <div class="act-stat-num" id="totalCoursesStat">0</div>
+                <div class="act-stat-label">Courses Teaching</div>
+              </div>
+              <div>
+                <div class="act-stat-num orange" id="avgCompletionStat">0%</div>
+                <div class="act-stat-label">Avg Completion</div>
+              </div>
+              <div>
+                <div class="act-stat-num" id="totalWeeksStat">0 wks</div>
+                <div class="act-stat-label">Total Duration</div>
+              </div>
+            </div>
+            <div class="contrib-graph" id="contribGraph">
+              <!-- rendered by JS -->
+            </div>
+            <div class="contrib-legend">
+              <div class="contrib-legend-item">
+                <div class="cl-swatch cl-duration"></div>
+                Course duration span
+              </div>
+              <div class="contrib-legend-item">
+                <div class="cl-swatch cl-completion"></div>
+                Trainee completion %
+              </div>
+            </div>
+          </div>
+
+          <!-- Courses + Gauge -->
+          <div class="courses-gauge-row">
+
+            <!-- Courses list -->
+            <div class="courses-card">
+              <div class="courses-card-head">
+                <h3>Your Courses</h3>
+                <a href="library.html">Manage library →</a>
+              </div>
+              <div id="coursesList">
+                <!-- rendered by JS -->
+              </div>
+            </div>
+
+            <!-- Gauge -->
+            <div class="gauge-card">
+              <h3>Course completed</h3>
+              <p>Overall completion rate</p>
+              <div class="gauge-wrap">
+                <svg class="gauge-svg" viewBox="0 0 140 80" id="gaugeSvg">
+                  <!-- Track -->
+                  <path d="M 14 76 A 56 56 0 0 1 126 76" fill="none" stroke="#EAECEF" stroke-width="12" stroke-linecap="round"/>
+                  <!-- Fill -->
+                  <path id="gaugeFill" d="M 14 76 A 56 56 0 0 1 126 76" fill="none" stroke="url(#gaugeGrad)" stroke-width="12" stroke-linecap="round"/>
+                  <defs>
+                    <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="var(--saffron)"/>
+                      <stop offset="100%" stop-color="var(--teal)"/>
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div class="gauge-center-text">
+                  <span class="gauge-pct" id="gaugePct">50%</span>
+                  <span class="gauge-pct-label">Completed</span>
+                </div>
+              </div>
+              <div class="gauge-steps">
+                <div class="gauge-step" id="gStepIn">1</div>
+                <div class="gauge-step" id="gStepComp">2</div>
+                <div class="gauge-step" id="gStepNot">3</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Trainee participation table -->
+          <div>
+            <div class="section-head">
+              <h2 style="font-size:16px;">Trainee participation</h2>
+              <a href="library.html">Manage library →</a>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Trainee</th>
+                    <th>Department</th>
+                    <th>Course</th>
+                    <th>Progress</th>
+                    <th>Score</th>
+                  </tr>
+                </thead>
+                <tbody id="traineeTable"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ===== Analytics Charts ===== -->
+          <div class="analytics-section">
+            <div class="section-head" style="margin-bottom:14px;">
+              <h2 style="font-size:16px;">Analytics Overview</h2>
+            </div>
+            <div class="analytics-grid">
+
+              <!-- LINE CHART -->
+              <div class="chart-card">
+                <div class="chart-card-head">
+                  <h4>Trainee Enrollment Trend</h4>
+                  <p>Monthly enrollment count &mdash; shows trends over time</p>
+                </div>
+                <svg id="lineChart" class="chart-svg" viewBox="0 0 380 160"></svg>
+                <div class="chart-legend">
+                  <div class="chart-legend-item"><div class="cl-line" style="background:#E8590C;"></div> Enrollment</div>
+                  <div class="chart-legend-item"><div class="cl-line" style="background:#0F766E;opacity:.5;"></div> Target</div>
+                </div>
+              </div>
+
+              <!-- BAR CHART -->
+              <div class="chart-card">
+                <div class="chart-card-head">
+                  <h4>Avg Score by Department</h4>
+                  <p>Compares trainee performance across departments</p>
+                </div>
+                <svg id="barChart" class="chart-svg" viewBox="0 0 380 160"></svg>
+                <div class="chart-legend">
+                  <div class="chart-legend-item"><div class="cl-dot" style="background:#0A2647;"></div> Score %</div>
+                </div>
+              </div>
+
+              <!-- DONUT CHART -->
+              <div class="chart-card">
+                <div class="chart-card-head">
+                  <h4>Course Completion Share</h4>
+                  <p>Composition of overall trainee completion status</p>
+                </div>
+                <svg id="donutChart" class="chart-svg" viewBox="0 0 380 170"></svg>
+                <div class="chart-legend" id="donutLegend"></div>
+              </div>
+
+              <!-- RADAR CHART -->
+              <div class="chart-card">
+                <div class="chart-card-head">
+                  <h4>Trainer Skill Radar</h4>
+                  <p>Performance across training competency areas</p>
+                </div>
+                <svg id="radarChart" class="chart-svg" viewBox="0 0 380 200"></svg>
+                <div class="chart-legend">
+                  <div class="chart-legend-item"><div class="cl-dot" style="background:#E8590C;"></div> R. Mehta</div>
+                  <div class="chart-legend-item"><div class="cl-dot" style="background:#0F766E;opacity:.6;"></div> Dept avg</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div><!-- end td-right -->
+      </div><!-- end td-layout -->
+
+    </div>
+  </div>
+</div>
+
+<!-- ===== Edit Profile Modal ===== -->
+<div class="ep-overlay" id="epOverlay" role="dialog" aria-modal="true" aria-labelledby="epTitle">
+  <div class="ep-modal">
+    <div class="ep-header">
+      <h3 id="epTitle">Edit Trainer Profile</h3>
+      <button class="ep-close" id="epClose" aria-label="Close">&times;</button>
+    </div>
+    <div class="ep-body">
+      <div class="ep-row">
+        <div class="ep-field">
+          <label for="epName">Full Name</label>
+          <input id="epName" type="text" placeholder="e.g. R. Mehta" autocomplete="off">
+        </div>
+        <div class="ep-field">
+          <label for="epDept">Department</label>
+          <input id="epDept" type="text" placeholder="e.g. Governance &amp; Finance" autocomplete="off">
+        </div>
+      </div>
+      <div class="ep-row">
+        <div class="ep-field">
+          <label for="epDesig">Designation</label>
+          <input id="epDesig" type="text" placeholder="e.g. Senior Trainer" autocomplete="off">
+        </div>
+        <div class="ep-field">
+          <label for="epRegion">Region / Cadre</label>
+          <input id="epRegion" type="text" placeholder="e.g. Central Secretariat" autocomplete="off">
+        </div>
+      </div>
+      <div class="ep-field">
+        <label for="epQual">Qualifications</label>
+        <textarea id="epQual" placeholder="e.g. M.A. Public Administration, Delhi University"></textarea>
+      </div>
+      <div class="ep-field">
+        <label for="epWork">Work experience &amp; current role</label>
+        <textarea id="epWork" placeholder="e.g. Senior Trainer, Governance Dept — 8 years of service"></textarea>
+      </div>
+      <div class="ep-field">
+        <label>Skills <span style="font-weight:400;color:var(--ink-soft);">(Press Enter to add)</span></label>
+        <div class="ep-tag-box" id="epSkillBox">
+          <input class="ep-tag-input" id="epSkillInput" placeholder="Add skill...">
+        </div>
+      </div>
+      <div class="ep-field">
+        <label>Interests <span style="font-weight:400;color:var(--ink-soft);">(Press Enter to add)</span></label>
+        <div class="ep-tag-box" id="epInterestBox">
+          <input class="ep-tag-input" id="epInterestInput" placeholder="Add interest...">
+        </div>
+      </div>
+    </div>
+    <div class="ep-footer">
+      <button class="ep-btn-cancel" id="epCancel">Cancel</button>
+      <button class="ep-btn-save" id="epSave">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/clerk-auth.js"></script>
+<script src="../assets/js/mock-data.js"></script>
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/layout.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
