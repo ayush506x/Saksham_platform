@@ -4,7 +4,7 @@
    (`npm run dev` → http://localhost:5000). Change API_BASE_URL if you
    deploy it elsewhere.
    ========================================================= */
-const API_BASE_URL = window.API_BASE_URL || "http://localhost:5000/api";
+const API_BASE_URL = window.API_BASE_URL || "https://sih-imd-backend.onrender.com/api";
 
 async function apiRequest(path, { method = "GET", body, formData } = {}) {
   const headers = {};
