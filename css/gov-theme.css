@@ -1,0 +1,300 @@
+/* ==========================================================================
+   SAKSHAM (सक्षम) - National Workforce Capability & Competency Mapping Portal
+   Government of India Theme & Design Tokens
+   Compliant with Guidelines for Indian Government Websites (GIGW)
+   ========================================================================== */
+
+:root {
+  /* Official Indian Tricolor & State Palette */
+  --gov-saffron: #d97706;
+  --gov-saffron-light: #fef3c7;
+  --gov-saffron-dark: #b45309;
+  
+  --gov-green: #15803d;
+  --gov-green-light: #dcfce7;
+  --gov-green-dark: #166534;
+  
+  --gov-navy: #003366;
+  --gov-navy-dark: #0b2545;
+  --gov-navy-light: #1e40af;
+  --gov-ashoka-blue: #000080;
+
+  /* Neutral Surfaces & Gov Form Borders */
+  --gov-bg: #f3f5f8;
+  --gov-card-bg: #ffffff;
+  --gov-border: #d2dbe5;
+  --gov-border-subtle: #e2e8f0;
+  
+  /* Text & Typography */
+  --gov-text-primary: #1e293b;
+  --gov-text-secondary: #475569;
+  --gov-text-muted: #64748b;
+  --gov-link: #003366;
+  --gov-link-hover: #1e40af;
+
+  /* Status Colors */
+  --gov-success: #15803d;
+  --gov-success-bg: #dcfce7;
+  --gov-warning: #b45309;
+  --gov-warning-bg: #fef3c7;
+  --gov-danger: #b91c1c;
+  --gov-danger-bg: #fee2e2;
+  --gov-info: #0369a1;
+  --gov-info-bg: #e0f2fe;
+
+  /* Standard Gov Shadows & Radii (Crisp, not overly curved) */
+  --gov-radius-sm: 3px;
+  --gov-radius-md: 6px;
+  --gov-radius-lg: 8px;
+  --gov-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --gov-shadow-md: 0 4px 6px -1px rgba(0, 51, 102, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --gov-shadow-lg: 0 10px 15px -3px rgba(0, 51, 102, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  /* Typography Scale */
+  --font-base: 15px;
+  --font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Noto Sans', Roboto, Helvetica, Arial, sans-serif;
+  --font-family-hindi: 'Noto Sans Devanagari', 'Segoe UI', Arial, sans-serif;
+}
+
+/* High Contrast Mode for Accessibility */
+body.high-contrast {
+  --gov-bg: #000000;
+  --gov-card-bg: #121212;
+  --gov-border: #ffff00;
+  --gov-border-subtle: #ffff00;
+  --gov-text-primary: #ffffff;
+  --gov-text-secondary: #e0e0e0;
+  --gov-text-muted: #cccccc;
+  --gov-link: #ffff00;
+  --gov-link-hover: #00ffff;
+  --gov-navy: #000000;
+  --gov-navy-dark: #000000;
+}
+
+/* Base Resets */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: var(--font-base);
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--gov-bg);
+  color: var(--gov-text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* National Tricolor Top Border Strip */
+.tiranga-stripe {
+  height: 4px;
+  width: 100%;
+  display: flex;
+  background: linear-gradient(90deg, #FF9933 33.33%, #FFFFFF 33.33%, #FFFFFF 66.66%, #138808 66.66%);
+}
+
+/* Gov Buttons */
+.gov-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: var(--gov-radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  text-decoration: none;
+}
+
+.gov-btn:focus-visible {
+  outline: 2px solid var(--gov-saffron);
+  outline-offset: 2px;
+}
+
+.gov-btn-primary {
+  background-color: var(--gov-navy);
+  color: #ffffff;
+  border-color: var(--gov-navy-dark);
+}
+
+.gov-btn-primary:hover {
+  background-color: var(--gov-navy-light);
+  box-shadow: var(--gov-shadow-sm);
+}
+
+.gov-btn-secondary {
+  background-color: #ffffff;
+  color: var(--gov-navy);
+  border-color: var(--gov-border);
+}
+
+.gov-btn-secondary:hover {
+  background-color: #f8fafc;
+  border-color: var(--gov-navy);
+}
+
+.gov-btn-success {
+  background-color: var(--gov-green);
+  color: #ffffff;
+  border-color: var(--gov-green-dark);
+}
+
+.gov-btn-success:hover {
+  background-color: var(--gov-green-dark);
+}
+
+.gov-btn-warning {
+  background-color: var(--gov-saffron);
+  color: #ffffff;
+  border-color: var(--gov-saffron-dark);
+}
+
+.gov-btn-danger {
+  background-color: var(--gov-danger);
+  color: #ffffff;
+}
+
+.gov-btn-sm {
+  padding: 5px 10px;
+  font-size: 0.8rem;
+}
+
+/* Gov Badges & Status Pills */
+.gov-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: var(--gov-radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid transparent;
+}
+
+.gov-badge-success {
+  background-color: var(--gov-success-bg);
+  color: var(--gov-success);
+  border-color: #bbf7d0;
+}
+
+.gov-badge-warning {
+  background-color: var(--gov-warning-bg);
+  color: var(--gov-warning);
+  border-color: #fde68a;
+}
+
+.gov-badge-danger {
+  background-color: var(--gov-danger-bg);
+  color: var(--gov-danger);
+  border-color: #fecaca;
+}
+
+.gov-badge-info {
+  background-color: var(--gov-info-bg);
+  color: var(--gov-info);
+  border-color: #bae6fd;
+}
+
+.gov-badge-navy {
+  background-color: #e0e7ff;
+  color: var(--gov-navy);
+  border-color: #c7d2fe;
+}
+
+/* Official Circular & Notification Tag */
+.gov-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--gov-navy);
+  background: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 2px;
+  border-left: 3px solid var(--gov-navy);
+}
+
+/* Official Gov Card */
+.gov-card {
+  background-color: var(--gov-card-bg);
+  border: 1px solid var(--gov-border);
+  border-radius: var(--gov-radius-md);
+  box-shadow: var(--gov-shadow-sm);
+  overflow: hidden;
+}
+
+.gov-card-header {
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--gov-border-subtle);
+  background: #fafbfd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gov-card-header h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--gov-navy);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gov-card-body {
+  padding: 18px;
+}
+
+/* Official Form Fields */
+.gov-form-group {
+  margin-bottom: 16px;
+}
+
+.gov-form-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gov-text-primary);
+  margin-bottom: 6px;
+}
+
+.gov-form-label .required {
+  color: var(--gov-danger);
+}
+
+.gov-form-control {
+  width: 100%;
+  padding: 9px 12px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--gov-text-primary);
+  background-color: #ffffff;
+  border: 1px solid var(--gov-border);
+  border-radius: var(--gov-radius-sm);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.gov-form-control:focus {
+  outline: none;
+  border-color: var(--gov-navy);
+  box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.15);
+}
+
+.gov-form-hint {
+  font-size: 0.78rem;
+  color: var(--gov-text-muted);
+  margin-top: 4px;
+}
