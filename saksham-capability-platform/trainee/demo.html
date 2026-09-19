@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trainee AI Hub — Saksham</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   Saksham — National Training & Competency Platform
+   Exact Design Tokens from Rajvardhan's Codebase
+   Navy #0A2647 / Saffron #E8590C / Teal #0F766E
+   Cream #FAF7F0 / Ink #1E293B / Gold #C99A2E
+   Type: Poppins (headings) + Inter (body)
+   ========================================================= */
+
+:root{
+  --navy-900:#081C36;
+  --navy-800:#0A2647;
+  --navy-700:#123B6B;
+  --navy-100:#E6ECF4;
+  --saffron:#E8590C;
+  --saffron-dark:#C4470A;
+  --teal:#0F766E;
+  --teal-dark:#0B5B54;
+  --gold:#C99A2E;
+  --cream:#FAF7F0;
+  --paper:#FFFFFF;
+  --ink:#1E293B;
+  --ink-soft:#5B6B82;
+  --line:#DFE3EA;
+  --green-flag:#138808;
+  --danger:#B3261E;
+  --radius-sm:6px;
+  --radius-md:10px;
+  --shadow-1:0 1px 2px rgba(10,38,71,.06), 0 1px 1px rgba(10,38,71,.04);
+  --shadow-2:0 6px 20px rgba(10,38,71,.10);
+  --maxw:1180px;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  color:var(--ink);
+  background:var(--cream);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{
+  font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  color:var(--navy-800);
+  margin:0 0 .4em;
+  line-height:1.25;
+  font-weight:600;
+}
+p{margin:0 0 1em;color:var(--ink-soft);max-width:70ch;}
+a{color:var(--navy-700);text-decoration:none;}
+a:hover{color:var(--saffron);}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 20px;border-radius:var(--radius-sm);font-weight:600;font-size:14.5px;border:1px solid transparent;cursor:pointer;transition:transform .08s ease, background .15s ease, box-shadow .15s ease;white-space:nowrap;font-family:inherit;}
+.btn:active{transform:translateY(1px);}
+.btn-primary{background:var(--saffron);color:#fff;}
+.btn-primary:hover{background:var(--saffron-dark);color:#fff;}
+.btn-navy{background:var(--navy-800);color:#fff;}
+.btn-navy:hover{background:var(--navy-700);color:#fff;}
+.btn-outline{background:transparent;border-color:var(--navy-700);color:var(--navy-700);}
+.btn-outline:hover{background:var(--navy-100);}
+.btn-teal{background:var(--teal);color:#fff;}
+.btn-teal:hover{background:var(--teal-dark);color:#fff;}
+.btn-ghost{background:transparent;color:var(--ink-soft);border-color:var(--line);}
+.btn-ghost:hover{background:#F1F3F6;}
+.btn-sm{padding:6px 12px;font-size:13px;}
+
+/* Cards & Layout */
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-md);box-shadow:var(--shadow-1);}
+.card-pad{padding:22px;}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+@media(max-width:900px){.grid-4{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:600px){.grid-4{grid-template-columns:1fr;}}
+
+.kpi{padding:20px;border-radius:var(--radius-md);border:1px solid var(--line);background:#fff;}
+.kpi .kpi-top{display:flex;justify-content:space-between;align-items:flex-start;}
+.kpi .kpi-icon{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.kpi-num{font-family:"Poppins";font-weight:700;font-size:26px;margin-top:10px;color:var(--navy-800);}
+.kpi-label{font-size:12.5px;color:var(--ink-soft);}
+
+.progress{height:7px;border-radius:20px;background:var(--navy-100);overflow:hidden;}
+.progress > span{display:block;height:100%;background:var(--teal);border-radius:20px;}
+
+/* App shell (dashboards) */
+.app-shell{display:flex;min-height:100vh;}
+.app-sidebar{width:250px;flex-shrink:0;background:var(--navy-900);color:#CBD8EA;padding:20px 0;position:sticky;top:0;height:100vh;overflow-y:auto;}
+.app-sidebar .brand{padding:0 20px 18px;display:flex;align-items:center;gap:12px;}
+.brand-emblem{width:40px;height:40px;border-radius:50%;background:var(--navy-800);border:1.5px solid var(--saffron);display:flex;align-items:center;justify-content:center;color:#fff;font-family:"Poppins";font-weight:700;font-size:14px;flex-shrink:0;}
+.brand-name{font-family:"Poppins";font-weight:700;font-size:18px;color:#fff;}
+.brand-sub{font-size:11.5px;color:#8FA3C2;letter-spacing:.2px;}
+.side-role{margin:0 20px 16px;padding:8px 10px;background:rgba(255,255,255,.06);border-radius:8px;font-size:12px;color:#A9BEDA;display:flex;align-items:center;gap:8px;}
+.side-role .dot{width:8px;height:8px;border-radius:50%;background:var(--saffron);}
+.side-nav{display:flex;flex-direction:column;gap:3px;padding:6px 12px;}
+.side-nav a{padding:10px 14px;border-radius:8px;color:#CBD8EA;font-size:14px;font-weight:500;display:flex;align-items:center;gap:10px;}
+.side-nav a:hover{background:rgba(255,255,255,.06);color:#fff;}
+.side-nav a.active{background:var(--saffron);color:#fff;}
+
+.app-main{flex:1;min-width:0;display:flex;flex-direction:column;}
+.app-topbar{background:#fff;border-bottom:1px solid var(--line);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.app-topbar h1{font-size:19px;margin:0;}
+.crumb{font-size:12.5px;color:var(--ink-soft);margin-bottom:4px;}
+.topbar-actions{display:flex;align-items:center;gap:14px;}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--navy-100);color:var(--navy-800);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;font-family:"Poppins";}
+
+.app-content{padding:28px;max-width:1240px;flex:1;}
+</style>
+
+<!-- Trainee AI Hub CSS -->
+<link rel="stylesheet" href="frontend/trainee-ai-hub.css">
+</head>
+<body>
+<div class="app-shell">
+  <!-- Rajvardhan's Sidebar -->
+  <aside class="app-sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-emblem">SK</div>
+      <div class="brand-text">
+        <div class="brand-name">Saksham</div>
+        <div class="brand-sub">Training &amp; Competency Platform</div>
+      </div>
+    </div>
+    <div class="side-role"><span class="dot"></span>Trainee workspace</div>
+    <nav class="side-nav">
+      <a href="#dashboard">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 13h6V4H4v9Zm0 7h6v-5H4v5Zm10 0h6V11h-6v9Zm0-16v5h6V4h-6Z"/></svg>
+        <span>Dashboard</span>
+      </a>
+      <a href="#profile">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 20c1.4-4 4.2-6 7.5-6s6.1 2 7.5 6"/></svg>
+        <span>My Profile</span>
+      </a>
+      <a href="#courses">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5v-15Z"/><path d="M8 3v15"/></svg>
+        <span>Courses</span>
+      </a>
+      <a href="#assessments">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11.5 11 13.5 15.5 9"/><circle cx="12" cy="12" r="9"/></svg>
+        <span>Assessments</span>
+      </a>
+      <a href="#ai-hub" class="active">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18M4 11h16M6 3l6 8 6-8"/></svg>
+        <span>AI Competency Hub</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="app-main">
+    <!-- Topbar -->
+    <div class="app-topbar">
+      <div>
+        <div class="crumb">Trainee workspace &bull; Self-directed learning</div>
+        <h1>AI Study &amp; Competency Hub</h1>
+      </div>
+      <div class="topbar-actions">
+        <span style="font-size:12.5px;color:var(--ink-soft);">Connected to SAKSHAM AI Engine</span>
+        <div class="avatar" title="Aditi (Trainee)">AK</div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="app-content">
+
+      <!-- Welcome Card in Rajvardhan Style -->
+      <div class="card card-pad" style="background:var(--navy-800);border:none;margin-bottom:22px;">
+        <h2 style="color:#fff;font-size:19px;margin:0 0 6px 0;">Welcome back, Aditi 👋</h2>
+        <p style="color:#C9D6E7;margin:0;">Use your personal AI assistant to turn your lecture notes into self-assessment quizzes, or discover top certified national faculty mentors for your domain.</p>
+      </div>
+
+      <!-- Rajvardhan KPI Cards -->
+      <div class="grid-4" style="margin-bottom:24px;">
+        <div class="kpi">
+          <div class="kpi-top"><div class="kpi-icon" style="background:#E6F4F2;color:var(--teal-dark);">📚</div></div>
+          <div class="kpi-num">3</div><div class="kpi-label">Courses enrolled</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-top"><div class="kpi-icon" style="background:#FDECE0;color:var(--saffron-dark);">🏅</div></div>
+          <div class="kpi-num">1</div><div class="kpi-label">Certificates earned</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-top"><div class="kpi-icon" style="background:#FDF5E3;color:#9A7412;">⚡</div></div>
+          <div class="kpi-num">300</div><div class="kpi-label">National faculty available</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-top"><div class="kpi-icon" style="background:#E6ECF4;color:var(--navy-800);">🎯</div></div>
+          <div class="kpi-num">86%</div><div class="kpi-label">Average assessment score</div>
+        </div>
+      </div>
+
+      <!-- =========================================================
+           TRAINEE AI HUB COMPONENT
+           ========================================================= -->
+      <div class="ai-hub-card" id="sakshamAIHub">
+        <!-- Hub Header -->
+        <div class="ai-hub-topbar">
+          <div class="ai-hub-title">
+            <div class="ai-hub-icon">⚡</div>
+            <div>
+              <h2>AI Study &amp; Competency Hub</h2>
+              <p>Grounded self-assessment quiz generator and verified national faculty recommender</p>
+            </div>
+          </div>
+          <div style="font-size:12px;font-weight:600;background:rgba(255,255,255,.1);padding:4px 10px;border-radius:20px;color:#CBD8EA;">
+            Trainee Learning Desk
+          </div>
+        </div>
+
+        <!-- Dual-Tab Navigation -->
+        <div class="ai-tabs-nav">
+          <button class="ai-tab-btn active" id="tabBtnMCQ" onclick="window.SakshamAIHub.switchTab('mcq')">
+            <span>📝</span>
+            <span>Notes-to-MCQ Practice</span>
+          </button>
+          <button class="ai-tab-btn" id="tabBtnTrainer" onclick="window.SakshamAIHub.switchTab('trainer')">
+            <span>👨‍🏫</span>
+            <span>Faculty &amp; Mentor Match</span>
+          </button>
+        </div>
+
+        <!-- TAB 1: MCQ GENERATOR -->
+        <div class="ai-panel active" id="panelMCQ">
+          <div class="preset-bar">
+            <span class="preset-title">Quick Syllabus Presets:</span>
+            <div class="preset-chips">
+              <button class="preset-chip" onclick="window.SakshamAIHub.loadNotesPreset('cyclone')">🌀 Cyclone Warning SOPs</button>
+              <button class="preset-chip" onclick="window.SakshamAIHub.loadNotesPreset('radar')">📡 Doppler Weather Radar</button>
+              <button class="preset-chip" onclick="window.SakshamAIHub.loadNotesPreset('nwp')">💻 Numerical Weather Prediction (WRF)</button>
+              <button class="preset-chip" onclick="window.SakshamAIHub.loadNotesPreset('rail')">🛡️ Train Protection (Kavach/ATP)</button>
+              <button class="preset-chip" onclick="window.SakshamAIHub.loadNotesPreset('clear')" style="color:var(--ink-soft);">✕ Clear</button>
+            </div>
+          </div>
+
+          <div class="ai-field">
+            <label for="aiNotesInput">Training Notes, Lecture Transcripts, or SOPs:</label>
+            <textarea id="aiNotesInput" rows="6" placeholder="Paste study notes, procedure manuals, or lecture summaries here..."></textarea>
+          </div>
+
+          <div class="ai-form-row">
+            <div class="ai-field" style="margin-bottom:0;">
+              <label for="aiDifficultySelect">Difficulty Level:</label>
+              <select id="aiDifficultySelect">
+                <option value="Easy">Easy (Foundation)</option>
+                <option value="Medium" selected>Medium (Operational)</option>
+                <option value="Hard">Hard (Problem Solving)</option>
+              </select>
+            </div>
+
+            <div class="ai-field" style="margin-bottom:0;">
+              <label for="aiNumQuestions">Questions Count:</label>
+              <select id="aiNumQuestions">
+                <option value="3">3 Questions (Fast)</option>
+                <option value="5" selected>5 Questions (Standard)</option>
+                <option value="10">10 Questions (Comprehensive)</option>
+              </select>
+            </div>
+
+            <div>
+              <button id="btnGenerateMCQ" class="btn btn-primary" onclick="window.SakshamAIHub.generateMCQs()">
+                <span>Generate Assessment</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="aiMCQNotice" style="display:none;margin-top:14px;padding:10px 14px;border-radius:6px;font-size:13px;"></div>
+
+          <div id="aiQuizView" class="quiz-section" style="display:none;">
+            <div class="quiz-meta-bar">
+              <div>
+                <h3 style="font-size:16px;margin:0 0 2px 0;">Interactive Practice Session</h3>
+                <span class="quiz-badge" id="quizMetaInfo"></span>
+              </div>
+              <div class="quiz-score-pill" id="quizLiveScore">
+                Score: 0 / 0
+              </div>
+            </div>
+
+            <div id="quizQuestionsContainer"></div>
+
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:20px;flex-wrap:wrap;gap:10px;">
+              <button class="btn btn-ghost btn-sm" onclick="window.SakshamAIHub.resetQuiz()">
+                <span>🔄 Retake Quiz</span>
+              </button>
+              <div id="quizCompletionSummary" style="font-weight:600;font-size:13.5px;color:var(--navy-800);"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: FACULTY RECOMMENDER -->
+        <div class="ai-panel" id="panelTrainer">
+          <div class="preset-bar">
+            <span class="preset-title">Subject Competency Presets:</span>
+            <div class="preset-chips">
+              <button class="preset-chip" onclick="window.SakshamAIHub.loadTrainerPreset('cyclone')">🌀 Cyclone Warning</button>
+              <button class="preset-chip" onclick="window.SakshamAIHub.loadTrainerPreset('radar')">📡 Doppler Radar</button>
+              <button class="preset-chip" onclick="window.SakshamAIHub.loadTrainerPreset('nwp')">💻 NWP Models</button>
+              <button class="preset-chip" onclick="window.SakshamAIHub.loadTrainerPreset('satellite')">🛰️ Satellite Remote Sensing</button>
+              <button class="preset-chip" onclick="window.SakshamAIHub.loadTrainerPreset('agromet')">🌾 Agrometeorology</button>
+              <button class="preset-chip" onclick="window.SakshamAIHub.loadTrainerPreset('rail')">🛡️ Rail Safety</button>
+            </div>
+          </div>
+
+          <div class="ai-form-row">
+            <div class="ai-field" style="margin-bottom:0;">
+              <label for="aiTrainerSubject">Subject or Required Skill:</label>
+              <input type="text" id="aiTrainerSubject" value="Tropical Cyclone Warning & Coastal Alert Protocols" placeholder="e.g. Cyclone Warning, Radar data, WRF modeling..." />
+            </div>
+
+            <div class="ai-field" style="margin-bottom:0;">
+              <label for="aiTrainerExp">Min. Experience:</label>
+              <select id="aiTrainerExp">
+                <option value="0">Any Experience</option>
+                <option value="5">5+ Years</option>
+                <option value="10" selected>10+ Years</option>
+                <option value="15">15+ Years (Senior)</option>
+              </select>
+            </div>
+
+            <div>
+              <button id="btnFindTrainers" class="btn btn-navy" onclick="window.SakshamAIHub.findTrainers()">
+                <span>Match Faculty</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="aiTrainerNotice" style="display:none;margin-top:14px;padding:10px 14px;border-radius:6px;font-size:13px;"></div>
+
+          <div id="aiTrainerGrid" class="trainer-grid"></div>
+        </div>
+      </div>
+
+      <!-- Dossier Modal -->
+      <div id="sakshamDossierModal" class="modal-overlay" onclick="if(event.target===this) window.SakshamAIHub.closeDossierModal()">
+        <div class="modal-content-shell">
+          <div class="modal-top">
+            <h3 id="modalTrainerName">Faculty Profile &amp; Competency Dossier</h3>
+            <button onclick="window.SakshamAIHub.closeDossierModal()">✕</button>
+          </div>
+          <div id="modalTrainerBody"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  window.SAKSHAM_AI_API_URL = 'http://localhost:8080';
+</script>
+<script src="frontend/trainee-ai-hub.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.SakshamAIHub) {
+      window.SakshamAIHub.loadNotesPreset('cyclone');
+      window.SakshamAIHub.findTrainers();
+    }
+  });
+</script>
+</body>
+</html>

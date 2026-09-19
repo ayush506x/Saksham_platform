@@ -48,7 +48,7 @@
 <script src="assets/js/clerk-auth.js"></script>
 <script src="assets/js/api.js"></script>
 <script>
-  const routes = { trainee: "trainee/dashboard.html", trainer: "trainer/dashboard.html" };
+  const routes = { trainee: "trainee/profile.html", trainer: "trainer/dashboard.html" };
   let chosenRole = "trainee";
   const statusBox = document.getElementById("statusBox");
 
@@ -57,8 +57,11 @@
     roleStep.style.display = "none";
     clerkStep.style.display = "block";
     try {
+      const redirectTarget = window.location.origin + "/" + routes[chosenRole];
       await AuthGuard.mountSignUp(document.getElementById("clerk-signup"), {
-        afterSignUpUrl: window.location.href,
+        afterSignUpUrl: redirectTarget,
+        fallbackRedirectUrl: redirectTarget,
+        forceRedirectUrl: redirectTarget,
         signInUrl: "login.html"
       });
       if (window.Clerk.user) finishSignup();
@@ -72,6 +75,8 @@
     statusBox.innerHTML = `<div class="alert alert-info">Setting up your account…</div>`;
     const name = window.Clerk.user.fullName || window.Clerk.user.username || "User";
     const email = window.Clerk.user.primaryEmailAddress?.emailAddress;
+    const activeUser = { name, email, role: chosenRole, status: chosenRole === "trainer" ? "PENDING" : "APPROVED" };
+    localStorage.setItem("saksham_active_user", JSON.stringify(activeUser));
     try {
       await Api.syncUser({ name, email, role: chosenRole });
       clerkStep.innerHTML = chosenRole === "trainer"

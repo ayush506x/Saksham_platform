@@ -21,11 +21,32 @@
 <div class="tricolor-rule"></div>
 
 <div class="auth-shell">
-  <div class="auth-card" style="max-width:420px;">
+  <div class="auth-card" style="max-width:440px;">
     <h1>Welcome back</h1>
     <p class="sub">Log in to continue your training journey.</p>
     <div id="statusBox"></div>
     <div id="clerk-signin"></div>
+
+    <div style="margin-top:22px;border-top:1px solid var(--line);padding-top:18px;">
+      <p style="font-size:12px;font-weight:700;color:var(--ink-soft);margin-bottom:10px;text-align:center;text-transform:uppercase;letter-spacing:.6px;">
+        1-Click Demo Logins
+      </p>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <button type="button" class="btn btn-outline btn-sm btn-block" style="justify-content:flex-start;display:flex;align-items:center;" onclick="quickLogin('trainee')">
+          <span>🎓 <strong>Log in as Trainee</strong></span>
+          <span style="font-size:11px;color:var(--ink-soft);margin-left:auto;">Aditi Sharma (Finance)</span>
+        </button>
+        <button type="button" class="btn btn-outline btn-sm btn-block" style="justify-content:flex-start;display:flex;align-items:center;" onclick="quickLogin('trainer')">
+          <span>👨‍🏫 <strong>Log in as Trainer</strong></span>
+          <span style="font-size:11px;color:var(--ink-soft);margin-left:auto;">R. Mehta (Governance)</span>
+        </button>
+        <button type="button" class="btn btn-outline btn-sm btn-block" style="justify-content:flex-start;display:flex;align-items:center;" onclick="quickLogin('admin')">
+          <span>⚙️ <strong>Log in as Admin</strong></span>
+          <span style="font-size:11px;color:var(--ink-soft);margin-left:auto;">CBC Verification Desk</span>
+        </button>
+      </div>
+    </div>
+
     <p class="auth-foot">New here? <a href="signup.html">Create an account</a></p>
   </div>
 </div>
@@ -33,39 +54,75 @@
 <script src="assets/js/clerk-auth.js"></script>
 <script src="assets/js/api.js"></script>
 <script>
-  const routes = { trainee: "trainee/dashboard.html", trainer: "trainer/dashboard.html", admin: "admin/dashboard.html" };
+  const routes = {
+    trainee: "trainee/profile.html",
+    trainer: "trainer/dashboard.html",
+    admin: "admin/dashboard.html"
+  };
   const statusBox = document.getElementById("statusBox");
+
+  window.quickLogin = function(role) {
+    const demoProfiles = {
+      trainee: { name: "Aditi Sharma", email: "aditi.sharma@gov.in", role: "trainee", dept: "Finance", status: "APPROVED", designation: "Section Officer" },
+      trainer: { name: "R. Mehta", email: "r.mehta@gov.in", role: "trainer", dept: "Governance", status: "APPROVED", designation: "Senior Trainer" },
+      admin: { name: "Administrator", email: "admin@saksham.gov.in", role: "admin", dept: "Capacity Building Commission", status: "APPROVED", designation: "Director" }
+    };
+    const p = demoProfiles[role] || demoProfiles.trainee;
+    localStorage.setItem("saksham_active_user", JSON.stringify(p));
+    statusBox.innerHTML = `<div class="alert alert-info">Logging in as ${p.name}…</div>`;
+    setTimeout(() => {
+      window.location.href = routes[role] || routes.trainee;
+    }, 400);
+  };
 
   async function redirectSignedInUser() {
     statusBox.innerHTML = `<div class="alert alert-info">Signing you in…</div>`;
+    const clerkUser = window.Clerk && window.Clerk.user;
+    const userName = (clerkUser && (clerkUser.fullName || clerkUser.username)) || "User";
+    const userEmail = (clerkUser && clerkUser.primaryEmailAddress?.emailAddress) || "";
+
+    let targetRole = "trainee";
     try {
-      const profile = await Api.getProfile(); // fails if this Clerk user hasn't been synced yet
-      window.location.href = routes[profile.role] || "trainee/dashboard.html";
+      const profile = await Api.getProfile();
+      if (profile && profile.role) targetRole = profile.role;
     } catch (e) {
-      // Not synced yet (first login) or backend unreachable — default new sign-ins to trainee.
       try {
         await Api.syncUser({
-          name: window.Clerk.user.fullName || window.Clerk.user.username || "User",
-          email: window.Clerk.user.primaryEmailAddress?.emailAddress,
+          name: userName,
+          email: userEmail,
           role: "trainee"
         });
-        window.location.href = routes.trainee;
       } catch (e2) {
-        statusBox.innerHTML = `<div class="alert alert-info">Backend not reachable at the moment — opening the trainee workspace with sample data. Start your backend (see README) to log in for real.</div>`;
-        setTimeout(() => window.location.href = routes.trainee, 1400);
+        // Backend not reachable, continue with active role
       }
     }
+
+    const activeUser = {
+      name: userName,
+      email: userEmail,
+      role: targetRole,
+      status: "APPROVED",
+      provider: "clerk"
+    };
+    localStorage.setItem("saksham_active_user", JSON.stringify(activeUser));
+
+    const dest = routes[targetRole] || routes.trainee;
+    window.location.href = dest;
   }
 
   (async function () {
+    const redirectTarget = window.location.origin + "/trainee/profile.html";
     await AuthGuard.mountSignIn(document.getElementById("clerk-signin"), {
-      afterSignInUrl: window.location.href,
+      afterSignInUrl: redirectTarget,
+      fallbackRedirectUrl: redirectTarget,
+      forceRedirectUrl: redirectTarget,
       signUpUrl: "signup.html"
     });
-    if (window.Clerk.user) redirectSignedInUser();
+    if (window.Clerk && window.Clerk.user) redirectSignedInUser();
     AuthGuard.addListener(({ user }) => { if (user) redirectSignedInUser(); });
-  })().catch(() => {
-    statusBox.innerHTML = `<div class="alert alert-error">Couldn't load the sign-in widget (offline, or Clerk isn't reachable). <a href="trainee/dashboard.html">Continue in demo mode →</a></div>`;
+  })().catch((err) => {
+    console.warn("Clerk sign-in widget notice:", err);
+    statusBox.innerHTML = `<div class="alert alert-info" style="font-size:13px;">Clerk authentication is connecting. You can also use the <strong>1-Click Demo Login</strong> buttons below to immediately enter your role workspace.</div>`;
   });
 </script>
 </body>
